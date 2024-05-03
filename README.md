@@ -3,7 +3,18 @@
 ## Installation
 
 ```bash
-pip install streamlit-plotly-map
+# optional
+# cd src/streamlit_plotly_map/frontend
+# npm install
+# npm run build
+# npm run export
+# cd ../../..
+
+python setup.py sdist bdist_wheel
+pip install dist/streamlit_plotly_map-0.0.1-py3-none-any.whl
+
+# optional
+# pip install -e . # to install the package in editable mode
 ```
 
 ## Example usage

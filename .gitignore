@@ -70,5 +70,8 @@ package-lock.json
 
 # Virtual Env
 env/*
-
 venv
+
+
+# include frontend build
+!src/streamlit_plotly_map/frontend/build
