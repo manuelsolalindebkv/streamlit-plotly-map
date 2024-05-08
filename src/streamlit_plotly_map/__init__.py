@@ -43,7 +43,10 @@ else:
 
 def plotly_map(df: pd.DataFrame, 
                selection_color='red', 
-               key=None, 
+               key=None,
+               override_height=600,
+               override_width="100%",
+               max_selections=None,
                **kwargs):
     """Create a new instance of "plotly_map".
     **kwargs are passed to plotly.express.scatter_mapbox
@@ -55,12 +58,34 @@ def plotly_map(df: pd.DataFrame,
     if key is None:
         key = "mymap"
 
-    fig1 = px.scatter_mapbox(df, lat="lat", lon="lon", mapbox_style="open-street-map", **kwargs)
+    # get min lat and min lon
+    min_lat = df["lat"].min()
+    min_lon = df["lon"].min()
+    max_lat = df["lat"].max()
+    max_lon = df["lon"].max()
+
+    # set zoom and center based on min and max lat and lon
+    zoom = 10
+    center = {"lat": (max_lat + min_lat) / 2, "lon": (max_lon + min_lon) / 2}
+
+    # check if zoom is passed in kwargs
+    if "zoom" in kwargs:
+        zoom = kwargs.pop("zoom")
+    if "center" in kwargs:
+        center = kwargs.pop("center")
+    if "max_selections" in kwargs:
+        max_selections = kwargs.pop("max_selections")
+
+    fig1 = px.scatter_mapbox(df, lat="lat", lon="lon", 
+                                zoom=zoom, center=center,
+                                hover_data=df.columns,
+                             mapbox_style="open-street-map", **kwargs)
 
     component_value = _component_func(
         plot_obj=fig1.to_json(),
-        override_height=450,
-        override_width="100%",
+        max_selections=max_selections,
+        override_height=override_height,
+        override_width=override_width,
         key=key,
         click_event=True,
         select_event=True,

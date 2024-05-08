@@ -11,6 +11,7 @@ const StreamlitPlotlyEventsComponent = ({ args }: { args: any }) => {
   const plot_obj = JSON.parse(args["plot_obj"]);
   const override_height = args["override_height"];
   const override_width = args["override_width"];
+  const max_selections = args["max_selections"];
   const selection_color = args["selection_color"];
 
   // Event booleans
@@ -34,6 +35,7 @@ const StreamlitPlotlyEventsComponent = ({ args }: { args: any }) => {
       <MyMap
         data={plot_obj.data}
         layout={plot_obj.layout}
+        max_selections={max_selections}
         revision={1}
         selection_color={selection_color}
         onSelected={select_event ? plotlyEventHandler : undefined}

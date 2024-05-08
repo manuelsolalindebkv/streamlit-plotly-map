@@ -15,6 +15,10 @@ pip install dist/streamlit_plotly_map-0.0.1-py3-none-any.whl
 
 # optional
 # pip install -e . # to install the package in editable mode
+
+
+# optional
+# pip install git+https://github.com/manuelsolalindebkv/streamlit-plotly-map.git
 ```
 
 ## Example usage
